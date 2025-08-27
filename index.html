@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TTRS API</title>
+</head>
+<body>
+<script>
+  // A super simple fake "API" running in the browser
+  async function handleRequest() {
+    const url = new URL(window.location.href);
+
+    const left = url.searchParams.get("left");
+    const operator = url.searchParams.get("operator");
+    const right = url.searchParams.get("right");
+
+    if (!left || !operator || !right) {
+      document.body.innerText = JSON.stringify({ error: "Missing params" });
+      return;
+    }
+
+    const a = parseFloat(left);
+    const b = parseFloat(right);
+    let result;
+
+    switch (operator) {
+      case "×": case "*": result = a * b; break;
+      case "÷": case "/": result = a / b; break;
+      case "+": result = a + b; break;
+      case "-": result = a - b; break;
+      default: result = "unknown operator";
+    }
+
+    const response = { result };
+    document.body.innerText = JSON.stringify(response);
+  }
+
+  handleRequest();
+</script>
+</body>
+</html>
