@@ -13,7 +13,9 @@
     const right = url.searchParams.get("right");
 
     if (!left || !operator || !right) {
+      document.open();
       document.write(JSON.stringify({ error: "Missing params" }));
+      document.close();
       return;
     }
 
@@ -29,7 +31,7 @@
       default: result = "unknown operator";
     }
 
-    // Only output JSON, no HTML
+    // Overwrite the whole page with ONLY JSON
     document.open();
     document.write(JSON.stringify({ result }));
     document.close();
