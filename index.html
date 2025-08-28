@@ -6,15 +6,14 @@
 </head>
 <body>
 <script>
-  async function handleRequest() {
+  (function(){
     const url = new URL(window.location.href);
-
     const left = url.searchParams.get("left");
     const operator = url.searchParams.get("operator");
     const right = url.searchParams.get("right");
 
     if (!left || !operator || !right) {
-      document.body.innerText = JSON.stringify({ error: "Missing params" });
+      document.write(JSON.stringify({ error: "Missing params" }));
       return;
     }
 
@@ -30,11 +29,11 @@
       default: result = "unknown operator";
     }
 
-    // Return JSON as plain text (so fetch(...).text() works fine)
-    document.body.innerText = JSON.stringify({ result });
-  }
-
-  handleRequest();
+    // Only output JSON, no HTML
+    document.open();
+    document.write(JSON.stringify({ result }));
+    document.close();
+  })();
 </script>
 </body>
 </html>
