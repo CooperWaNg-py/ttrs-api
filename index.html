@@ -6,7 +6,6 @@
 </head>
 <body>
 <script>
-  // A super simple fake "API" running in the browser
   async function handleRequest() {
     const url = new URL(window.location.href);
 
@@ -31,8 +30,8 @@
       default: result = "unknown operator";
     }
 
-    const response = { result };
-    document.body.innerText = JSON.stringify(response);
+    // Return JSON as plain text (so fetch(...).text() works fine)
+    document.body.innerText = JSON.stringify({ result });
   }
 
   handleRequest();
